@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { Metadata } from "next";
 import { ReactElement } from "react";
+import Provider from "./provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,9 +23,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <body> */}
-      <body>{children as ReactElement}</body>
-      {/* </body> */}
+      <body>
+        <Provider>{children as ReactElement}</Provider>
+      </body>
     </html>
   );
 }
