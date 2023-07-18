@@ -13,7 +13,7 @@ export type User = {
 
 export default function Page() {
   const [user, toggleUser] = useState<User>({
-    name: "",
+    name: " ",
     position: "freelancer",
   });
 
