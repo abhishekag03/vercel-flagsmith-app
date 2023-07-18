@@ -3,7 +3,7 @@
 import { Jost } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import flagsmith from "flagsmith/isomorphic";
+import { useFlagsmith } from "flagsmith/react";
 
 const jost = Jost({ subsets: ["latin"] });
 
@@ -13,6 +13,7 @@ export type User = {
 };
 
 export default function Page() {
+  const flagsmith = useFlagsmith();
   const [user, toggleUser] = useState<User>({
     name: "",
     position: "freelancer",
@@ -34,9 +35,9 @@ export default function Page() {
     });
   };
 
-  const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    flagsmith.setTrait("profession", user.position); // setting the "profession" trait as the one selected by user
+    await flagsmith.setTrait("profession", user.position); // setting the "profession" trait as the one selected by user
     router.push("/about?name=" + user.name + "&position=" + user.position);
   };
 
