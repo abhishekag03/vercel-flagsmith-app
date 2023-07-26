@@ -110,6 +110,19 @@ export default function Page() {
               with&nbsp;Vercel
             </p>
           </a>
+          <a
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            className={styles.card}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h2 className={inter.className}>
+              Configure <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              Configure your feature rollout with&nbsp;Flagsmith
+            </p>
+          </a>
         </div>
       </main>
     </>
