@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 
 import { Metadata } from "next";
 import { ReactElement } from "react";
+import Provider from "./provider";
+import flagsmith from "flagsmith/isomorphic";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,11 +22,22 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const flagsmithState = await flagsmith
+    .init({
+      // fetches flags on the server
+      environmentID: "heiEFz5x78igSLA8fGRgiP", // substitute your env ID
+      identity: "my_user_id", // specify the identity of the user to get their specific flags
+    })
+    .then(() => {
+      return flagsmith.getState();
+    });
   return (
     <html lang="en">
-      {/* <body> */}
-      <body>{children as ReactElement}</body>
-      {/* </body> */}
+      <body>
+        <Provider flagsmithState={flagsmithState}>
+          {children as ReactElement}
+        </Provider>
+      </body>
     </html>
   );
 }
