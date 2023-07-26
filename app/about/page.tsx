@@ -2,10 +2,12 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import { useFlags } from "flagsmith/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Page() {
+  const flags = useFlags(["configure_card_controller"]); // only causes re-render if specified flag values / traits change
   return (
     <>
       <main className={styles.main}>
@@ -110,19 +112,21 @@ export default function Page() {
               with&nbsp;Vercel
             </p>
           </a>
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Configure <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Configure your feature rollout with&nbsp;Flagsmith
-            </p>
-          </a>
+          {flags.configure_card_controller.enabled ? (
+            <a
+              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+              className={styles.card}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <h2 className={inter.className}>
+                Configure <span>-&gt;</span>
+              </h2>
+              <p className={inter.className}>
+                Configure your feature rollout with&nbsp;Flagsmith
+              </p>
+            </a>
+          ) : null}
         </div>
       </main>
     </>
